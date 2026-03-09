@@ -13,11 +13,11 @@ const PORT = process.env.PORT || 5000;
 // Establish connection to MongoDB before starting the server
 connectDB();
 
-// Define a simple test route
-// GET / -> responds with a friendly message
-app.get("/", (req, res) => {
-  res.send("Hello, world!");
-});
+// Middleware to parse incoming JSON requests
+// Allows the server to read data sent in request body (e.g., POST/PUT requests)
+app.use(express.json({ extended: false }));
+
+app.use("/api/users", require("./routes/api/users"));
 
 // Start the server and listen on the defined PORT
 app.listen(PORT, () => {
